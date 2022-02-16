@@ -22,6 +22,7 @@ class Form extends Component {
   addReservation = event => {
     event.preventDefault()
     const newReservation = {
+      id: Date.now(),
       name: this.state.name,
       date: this.state.date,
       time: this.state.time,
