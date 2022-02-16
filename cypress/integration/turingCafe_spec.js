@@ -9,6 +9,11 @@ describe('Turing Cafe User Flow', () => {
       .should('have.text', 'Turing Cafe Reservations')
   });
 
+  it('Should have a backdrop photo', () => {
+    cy.get('.App')
+      .should('have.css', 'background-image')
+  });
+
   it('Should have a form with inputs and a submit button to create a new reservation', () => {
     cy.get('form')
       .should('exist')
@@ -42,4 +47,16 @@ describe('Turing Cafe User Flow', () => {
       .should('have.text', '7:00')
   });
 
+  it('Should display the number of guests', () => {
+    cy.get('.card-number')
+      .first()
+      .should('have.text', 'Number of Guests: 12')
+  });
+
+  it('Should have a cancel reservation button', () => {
+    cy.get('.cancel-button')
+      .first()
+      .should('exist')
+      .should('have.text', 'Cancel')
+  });
 });
