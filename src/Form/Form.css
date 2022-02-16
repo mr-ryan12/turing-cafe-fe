@@ -1,0 +1,12 @@
+form {
+  display: flex;
+  justify-content: space-evenly;
+  width: 90%;
+}
+
+button {
+  background-color: teal;
+  color: #FFF;
+  border-color: #FFF;
+  width: 12%;
+}
