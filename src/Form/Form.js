@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { addNewReservation } from '../apiCalls'
 import './Form.css'
 
 class Form extends Component {
@@ -9,7 +10,8 @@ class Form extends Component {
       name: '',
       date: '',
       time: '',
-      number: ''
+      number: '',
+      error: ''
     }
   }
 
@@ -22,13 +24,16 @@ class Form extends Component {
   addReservation = event => {
     event.preventDefault()
     const newReservation = {
-      id: Date.now(),
       name: this.state.name,
       date: this.state.date,
       time: this.state.time,
       number: parseInt(this.state.number)
     }
-    this.props.addReservation(newReservation)
+    addNewReservation(newReservation)
+      .then(data => {
+        this.props.addReservation(data)
+      })
+      .catch(error => this.setState({error: error.message}))
     this.clearState()
   }
 
@@ -37,43 +42,48 @@ class Form extends Component {
       name: '',
       date: '',
       time: '',
-      number: ''
+      number: '',
+      error: ''
     })
   }
 
   render() {
+    const errorMessage = this.state.error ? <p className="error-message">Please fill out all fields!</p> : null
     return (
-      <form>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={this.state.name}
-          onChange={event =>this.handleChange(event)}
-        />
-        <input
-          type="text"
-          name="date"
-          placeholder="Date (mm/dd)"
-          value={this.state.date}
-          onChange={event =>this.handleChange(event)}
-        />
-        <input
-          type="text"
-          name="time"
-          placeholder="Time"
-          value={this.state.time}
-          onChange={event =>this.handleChange(event)}
-        />
-        <input
-          type="text"
-          name="number"
-          placeholder="Number of guests"
-          value={this.state.number}
-          onChange={event =>this.handleChange(event)}
-        />
-        <button onClick={event => this.addReservation(event)} className="submit-button">Make Reservation</button>
-      </form>
+      <>
+        {errorMessage}
+        <form>
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={this.state.name}
+            onChange={event =>this.handleChange(event)}
+            />
+          <input
+            type="text"
+            name="date"
+            placeholder="Date (mm/dd)"
+            value={this.state.date}
+            onChange={event =>this.handleChange(event)}
+            />
+          <input
+            type="text"
+            name="time"
+            placeholder="Time"
+            value={this.state.time}
+            onChange={event =>this.handleChange(event)}
+            />
+          <input
+            type="text"
+            name="number"
+            placeholder="Number of guests"
+            value={this.state.number}
+            onChange={event =>this.handleChange(event)}
+            />
+          <button onClick={event => this.addReservation(event)} className="submit-button">Make Reservation</button>
+        </form>
+      </>
     )
   }
 }

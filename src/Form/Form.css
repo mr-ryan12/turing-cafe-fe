@@ -10,3 +10,7 @@ button {
   border-color: #FFF;
   width: 12%;
 }
+
+.error-message {
+  color: #FFF;
+}
