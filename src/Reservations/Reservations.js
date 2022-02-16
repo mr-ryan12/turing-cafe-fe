@@ -9,6 +9,7 @@ const Reservations = props => {
         key={reservation.id}
         id={reservation.id}
         name={reservation.name}
+        date={reservation.date}
         time={reservation.time}
         number={reservation.number}
       />
