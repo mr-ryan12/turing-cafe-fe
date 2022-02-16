@@ -25,5 +25,21 @@ describe('Turing Cafe User Flow', () => {
       .should('have.text', 'Make Reservation')
   });
 
+  it('Should display current reservations', () => {
+    cy.get('.reservation-card')
+      .should('have.length', 9)
+  });
+
+  it('Should display the reservation name', () => {
+    cy.get('.card-name')
+      .first()
+      .should('have.text', 'Christie')
+  });
+
+  it('Should display the reservation time', () => {
+    cy.get('.card-time')
+      .first()
+      .should('have.text', '7:00')
+  });
 
 });
